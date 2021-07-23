@@ -3,7 +3,9 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "lint": "eslint",
+    "test": "jest --watch"
   },
   "dependencies": {
     "next": "latest",
@@ -11,8 +13,25 @@
     "react-dom": "^17.0.2"
   },
   "devDependencies": {
-    "autoprefixer": "^10.2.6",
-    "postcss": "^8.3.5",
-    "tailwindcss": "^2.2.4"
+    "@testing-library/dom": "^8.1.0",
+    "@testing-library/jest-dom": "^5.14.1",
+    "@testing-library/react": "^12.0.0",
+    "@testing-library/user-event": "^13.2.0",
+    "@types/babel-generator": "^6.25.4",
+    "@types/jest": "^26.0.24",
+    "@types/node": "^16.4.1",
+    "@types/react": "^17.0.14",
+    "@typescript-eslint/eslint-plugin": "^4.28.4",
+    "@typescript-eslint/parser": "^4.28.4",
+    "autoprefixer": "^10.3.1",
+    "babel-jest": "^27.0.6",
+    "eslint": "^7.31.0",
+    "eslint-plugin-react": "^7.24.0",
+    "jest": "^27.0.6",
+    "jest-config": "^27.0.6",
+    "postcss": "^8.3.6",
+    "prettier": "^2.3.2",
+    "tailwindcss": "^2.2.7",
+    "typescript": "^4.3.5"
   }
 }
