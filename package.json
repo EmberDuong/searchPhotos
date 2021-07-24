@@ -34,8 +34,10 @@
     "jest": "^27.0.6",
     "jest-config": "^27.0.6",
     "postcss": "^8.3.6",
+    "postcss-import": "^14.0.2",
     "prettier": "^2.3.2",
     "tailwindcss": "^2.2.7",
+    "tailwindcss-filters": "^3.0.0",
     "typescript": "^4.3.5"
   }
 }

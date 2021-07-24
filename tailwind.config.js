@@ -17,7 +17,20 @@ module.exports = {
         '1500': '1500ms',
         '2000': '2000ms',
         '4000': '4000ms',
-      }
+      },
+      animation: {
+        'spin-slow': 'spin 3s linear infinite',
+      },
+      backdropFilter: {
+        'none': 'none',
+        'blur': 'blur(20px)',
+      },
+      filter: {
+        'none': 'none',
+        'grayscale': 'grayscale(1)',
+        'invert': 'invert(1)',
+        'sepia': 'sepia(1)',
+      },
     },
     screens: {
       sm: '640px',
@@ -804,10 +817,10 @@ module.exports = {
   ],
   variants: {
     accessibility: ['responsive', 'focus-within', 'focus'],
+    animation: ['responsive', 'motion-safe', 'motion-reduce'],
     alignContent: ['responsive'],
     alignItems: ['responsive'],
     alignSelf: ['responsive'],
-    animation: ['responsive'],
     appearance: ['responsive'],
     backgroundAttachment: ['responsive'],
     backgroundClip: ['responsive'],
@@ -969,5 +982,8 @@ module.exports = {
     wordBreak: ['responsive'],
     zIndex: ['responsive', 'focus-within', 'focus']
   },
-  plugins: []
+  plugins: [
+    require('tailwindcss-filters'),
+    // require('tailwindcss-plugins/pagination'),
+  ],
 }
