@@ -6,6 +6,8 @@ module.exports = {
   darkMode: false, // or 'media' or 'class'
   theme: {
     extend: {
+      objectPosition: ['hover', 'focus'],
+      objectFit: ['hover', 'focus'],
       opacity: ['disabled'],
       transitionProperty: {
         'width': 'width'
@@ -56,7 +58,7 @@ module.exports = {
       blue: {
         ...colors.lightBlue
       },
-      white: '#dddddf'
+      white: '#fff'
     },
     spacing: {
       px: '1px',
@@ -556,7 +558,9 @@ module.exports = {
       right: 'right',
       'right-bottom': 'right bottom',
       'right-top': 'right top',
-      top: 'top'
+      top: 'top',
+      'center-bottom': 'center bottom',
+      'center-top': 'center top',
     },
     opacity: {
       0: '0',

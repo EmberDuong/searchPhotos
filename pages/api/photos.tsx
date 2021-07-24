@@ -5,8 +5,8 @@ import { toStringParams } from '../../utils/helper';
 
 export default (req: NextApiRequest, res: NextApiResponse) => {
   const { query } = req
-  console.log(toStringParams(query))
   if (req.method === 'GET') {
+    console.log(toStringParams(query))
     upsplashRequest.get(`/search/photos?${toStringParams(query)}`).then((r) => {
       res.status(200).json({ data: r })
     });
