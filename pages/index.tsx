@@ -38,6 +38,9 @@ export default function Home() {
         setIsSearching(false)
         return setData(results.data as unknown as type.DataType )
       }).catch(e => {console.log(e)})
+    } else {
+      setData({ results: [], total: 0, total_pages: 0 })
+      setIsSearching(false)
     }
   }
   const handleChangePagination = (page: number) => {
@@ -63,6 +66,17 @@ export default function Home() {
     window.open(url)
   }
 
+  const noDataRender = () => {
+    if(!isSearching)
+      return (
+        <div className='w-full justify-center items-center h-60'>
+          <h1 className='lg:text-3xl font-bold text-gray-700 text-xl text-gray-500'>
+            {debouncedSearchTerm? `No photos found for "${debouncedSearchTerm}"` : 'Type something to search for image'}
+          </h1>
+        </div>
+      )
+  }
+
   return (
     <div className="flex flex-col items-center min-h-screen py-2">
       <Head>
@@ -80,11 +94,13 @@ export default function Home() {
             placeholder="Type something to search for image"
             onChange={onChangeSearch}
             defaultSearch={searchTerm}
+            loading={isSearching}
           />
         </div>
 
         <div className={Style.block}>
-          {data && data?.results.map((item: type.PhotoType) => (
+          {(data && data?.results.length>0)?
+            data?.results.map((item: type.PhotoType) => (
             <div key={item.id} className='lg:w-1/4 lg:p-2 md:p-1 md:w-1/2 w-full p-2'>
               <Image
                 src={item.urls.regular}
@@ -94,10 +110,14 @@ export default function Home() {
                 user={item.user}
                 alt={item.description || ''}/>
             </div>
-          ))}
+          ))
+          : noDataRender()
+          }
+
+          {}
         </div>
 
-        {data && data?.results && <Pagination
+        {data && data?.results.length > 0 && <Pagination
           className='p-4'
           limit={16} onChangePage={handleChangePagination} page={pagination.page} total={data?.total} totalPage={data?.total_pages}/>}
 

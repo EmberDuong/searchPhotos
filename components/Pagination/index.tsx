@@ -19,6 +19,10 @@ export default function Index (props: PaginationProps): JSX.Element {
   const [range, setRange] = useState<number[]>([])
 
   useEffect(() => {
+    if(totalPage === 1 || totalPage === 0) {
+      setRange([])
+      return
+    }
     let start = page - 2
     let end = page + 2
     if(end >= totalPage)

@@ -2,12 +2,13 @@ export interface SearchProps {
   placeholder?: string
   onChange: (search: string) => void
   defaultSearch?: string
+  loading?: boolean
 }
 
 export default function InputSearch (props: SearchProps): JSX.Element {
   return (
     <div className="lg:p-4 w-full p-2">
-      <div className="bg-white flex items-center rounded-full shadow">
+      <div className="bg-white flex items-center rounded-full shadow relative">
         <div className="p-4">
           <svg className="h-6 w-6 text-gray-700" fill="currentColor" xmlns="http://www.w3.org/2000/svg"
                viewBox="0 0 24 24">
@@ -23,7 +24,7 @@ export default function InputSearch (props: SearchProps): JSX.Element {
           onChange={e => props.onChange(e.target.value)}
           defaultValue={props.defaultSearch || ''}
         />
-
+        {props.loading && <span className='animate-ping absolute inline-flex h-4 w-4 rounded-full bg-purple-400 opacity-75 shadow-xl right-4' />}
       </div>
     </div>
   )
