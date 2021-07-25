@@ -22,7 +22,7 @@ export default function Home() {
   const [isSearching, setIsSearching] = useState(false)
   const [searchTerm, setSearchTerm] = useState("");
   const debouncedSearchTerm = useDebounce(searchTerm, 1000);
-  const debouncedPage = useDebounce(pagination.page, 800);
+  const debouncedPage = useDebounce(pagination.page, 1000);
 
   useMemo(() => {
     const {page, query} = router.query
@@ -38,7 +38,7 @@ export default function Home() {
       request.get('/photos?' + params).then(results => {
         setIsSearching(false)
         return setData(results.data as unknown as type.DataType )
-      })
+      }).catch(e => {console.log(e)})
     }
   }
   const handleChangePagination = (page: number) => {
@@ -68,7 +68,7 @@ export default function Home() {
     <div className="flex flex-col items-center min-h-screen py-2">
       <Head>
         <title>Searching image</title>
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href='/favicon.ico' />
       </Head>
 
       <main className="flex flex-col items-center w-full flex-1 lg:px-20 text-center lg:p-4">

@@ -8,19 +8,14 @@ export interface ImageProps {
   onClick?: () => void
   title?: string
   loading?: boolean
-  user?: any
+  user?: never
 }
-
-// user.name
-// user.bio
-// user.profile_image : {small, medium, large}
 
 function trimmedString (string: string, length: number) {
   return string.length > length ?
     string.substring(0, length - 3) + "..." :
     string
 }
-
 
 export default function Index (props: ImageProps): JSX.Element {
   const [imageLoader, setImageLoader] = useState(true)
@@ -30,7 +25,9 @@ export default function Index (props: ImageProps): JSX.Element {
     return <div className='absolute bottom-1.5 left-2 z-10'>
       {user &&
       <div className='flex'>
-        <img className='lg:w-10 lg:h-10 w-8 h-8 rounded-full mr-4' alt={user?.name} src={user?.profile_image.small}/>
+        <img
+          className={`lg:w-10 lg:h-10 w-8 h-8 rounded-full mr-4 ${imageLoader && 'bg-gray-500 animate-pulse'}`}
+          alt={imageLoader ? '' : user?.name} src={user?.profile_image.small}/>
         <div className='text-left'>
           <p className='text-white text-sm font-bold'> {user?.name}</p>
           <p className='text-white text-xs '> {trimmedString(user?.bio || '', 35)}</p>

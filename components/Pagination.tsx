@@ -19,15 +19,13 @@ export default function Pagination (props: PaginationProps): JSX.Element {
 
   useEffect(() => {
     let start = page - 2
-    setStartRange(start)
-    let end = page + 3
-    if(end >= totalPage) {
+    let end = page + 2
+    if(end >= totalPage)
       end = totalPage
-      start = start - 2
-    }
     if (start <= 0)
       start = 1
     if(start < 2) end = end + 2
+    setStartRange(start)
     setEndRange(end)
     const list = []
     for(let i = start; i < end; i++){
@@ -38,11 +36,11 @@ export default function Pagination (props: PaginationProps): JSX.Element {
   }, [page])
 
   const nextPage = () => {
-    if(page > 0 && page < total)
+    if(page > 0 && page < totalPage)
       props.onChangePage(page + 1)
   }
   const previousPage = () => {
-    if(page <= total && page > 1)
+    if(page <= totalPage && page > 1)
       props.onChangePage(page - 1)
   }
   const setPage = (pageNumber: number) => {
@@ -54,37 +52,47 @@ export default function Pagination (props: PaginationProps): JSX.Element {
       <button
         onClick={() => setPage(pageNumber)}
         key={pageNumber}
-        className={`mx-1 px-3 py-2 bg-gray-200 text-gray-700 hover:bg-gray-300 rounded-lg ${page === pageNumber && 'bg-gray-500'}`}>
-        <p className={`font-bold ${page === pageNumber && 'text-gray-100'}`}>{pageNumber}</p>
+        className={`mx-1 lg:px-3 lg:py-2 p-1 bg-gray-200 text-gray-700 hover:bg-gray-300 rounded-lg ${page === pageNumber && 'bg-gray-500'}`}>
+        <p className={`font-bold lg:text-sm text-xs  ${page === pageNumber && 'text-gray-100'}`}>{pageNumber}</p>
       </button>
     )}
-
   return (
     <ul className={classNames('flex', props?.className)}>
-      <button className="flex items-center font-bold hover:bg-gray-300 rounded-lg"
+      <button className={`flex items-center font-bold rounded-lg ${page > 1 && 'hover:bg-gray-300'}`}
               onClick={() => previousPage()}
               disabled={page <= 1}>
-        <span className={`mx-1 ${page <= 1 && 'font-bold text-gray-100'}`}>previous</span>
+        <span className={`lg:text-sm text-xs mx-1 ${page <= 1 && ' text-gray-300'}`}>
+          <img
+            className='w-6 h-6'
+            src="https://img.icons8.com/pastel-glyph/64/000000/double-left.png" alt='pre'/>
+        </span>
       </button>
 
       {totalPage > 0 && ButtonPage(1)}
 
       { startRange > 2 &&
-      <div className="flex items-center font-bold m-2">
+      <div className="flex items-center font-bold lg:m-2">
         <span className={`mx-1 ${page <= 1 && 'text-gray'}`}>...</span>
       </div> }
 
       {range.map(item => ButtonPage(item))}
 
       { (endRange < totalPage - 2) &&
-      <div className="flex items-center font-bold m-2">
+      <div className="flex items-center font-bold lg:m-2">
         <span className={`mx-1 ${page <= 1 && 'text-gray'}`}>...</span>
       </div> }
 
       {totalPage > 1 && ButtonPage(totalPage)}
 
-      <button className="flex items-center font-bold hover:bg-gray-300 rounded-lg" onClick={() => nextPage()} disabled={page >= total}>
-        <span className={`mx-1 ${page >= total && 'font-bold text-gray-100'}`}>Next</span>
+      <button className={`flex items-center font-bold rounded-lg ${page < totalPage && 'hover:bg-gray-300'}`}
+              onClick={() => nextPage()}
+              disabled={page >= totalPage}>
+        <span className={`lg:text-sm text-xs mx-1 ${page >= totalPage && ' text-gray-300'}`}>
+          <img
+            className={`w-6 h-6 ${page >= totalPage && 'text-gray-300'}`}
+            alt={'next'}
+            src="https://img.icons8.com/pastel-glyph/64/000000/double-right.png"/>
+        </span>
       </button>
     </ul>
   )
