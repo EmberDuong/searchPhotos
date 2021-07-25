@@ -1,5 +1,7 @@
 import classNames from 'classnames'
 import { useState, Fragment } from 'react';
+import Style from './image.module.css'
+import GlobalStyle from '../../styles/home.module.css'
 
 export interface ImageProps {
   src: string
@@ -8,7 +10,7 @@ export interface ImageProps {
   onClick?: () => void
   title?: string
   loading?: boolean
-  user?: never
+  user?: any
 }
 
 function trimmedString (string: string, length: number) {
@@ -22,11 +24,11 @@ export default function Index (props: ImageProps): JSX.Element {
   const { user } = props
 
   const userInfo = () => {
-    return <div className='absolute bottom-1.5 left-2 z-10'>
+    return <div className={Style.userGrid}>
       {user &&
       <div className='flex'>
         <img
-          className={`lg:w-10 lg:h-10 w-8 h-8 rounded-full mr-4 ${imageLoader && 'bg-gray-500 animate-pulse'}`}
+          className={classNames(Style.userImage, imageLoader && 'bg-gray-500 animate-pulse')}
           alt={imageLoader ? '' : user?.name} src={user?.profile_image.small}/>
         <div className='text-left'>
           <p className='text-white text-sm font-bold'> {user?.name}</p>
@@ -37,21 +39,18 @@ export default function Index (props: ImageProps): JSX.Element {
   }
 
   return (
-    <div className={classNames(props.className, 'w-full bg-black rounded-xl relative')}>
+    <div className={classNames(props.className, Style.imageBlock)}>
       {(props.loading)?
-          <div className='rounded-xl bg-gray-500 animate-pulse h-full w-full'/>
+          <div className={GlobalStyle.loadingProcess}/>
         :
-        <Fragment >
+        <Fragment>
           {userInfo()}
-          <img className={`inset-0 w-full h-full object-center object-cover rounded-xl hover:opacity-100 cursor-pointer opacity-80
-        ${imageLoader && 'bg-gray-500 animate-pulse'}`}
+          <img className={ classNames(Style.image, imageLoader && 'bg-gray-500 animate-pulse')}
                onLoad={() => setImageLoader(false)}
                src={props.src} alt={imageLoader? '' : props.alt}
                onClick={props?.onClick}
           />
         </Fragment>
-
-
       }
     </div>
   )

@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import classNames from 'classnames';
+import Style from './pagination.module.css'
 
 export interface PaginationProps {
   limit: number
@@ -11,7 +12,7 @@ export interface PaginationProps {
   className?: string
 }
 
-export default function Pagination (props: PaginationProps): JSX.Element {
+export default function Index (props: PaginationProps): JSX.Element {
   const {page, total, totalPage} = props
   const [startRange, setStartRange] = useState(0)
   const [endRange, setEndRange] = useState(0)
@@ -52,13 +53,21 @@ export default function Pagination (props: PaginationProps): JSX.Element {
       <button
         onClick={() => setPage(pageNumber)}
         key={pageNumber}
-        className={`mx-1 lg:px-3 lg:py-2 p-1 bg-gray-200 text-gray-700 hover:bg-gray-300 rounded-lg ${page === pageNumber && 'bg-gray-500'}`}>
+        className={classNames(Style.buttonNumberPage, page === pageNumber && 'bg-gray-500')}>
         <p className={`font-bold lg:text-sm text-xs  ${page === pageNumber && 'text-gray-100'}`}>{pageNumber}</p>
       </button>
     )}
+
+  const x3dot = () => {
+    return(
+      <div className="flex items-center font-bold lg:m-2">
+        <span className='mx-1'>...</span>
+      </div>
+    )
+  }
   return (
     <ul className={classNames('flex', props?.className)}>
-      <button className={`flex items-center font-bold rounded-lg ${page > 1 && 'hover:bg-gray-300'}`}
+      <button className={classNames(Style.buttonPagination, page > 1 && 'hover:bg-gray-300')}
               onClick={() => previousPage()}
               disabled={page <= 1}>
         <span className={`lg:text-sm text-xs mx-1 ${page <= 1 && ' text-gray-300'}`}>
@@ -70,21 +79,15 @@ export default function Pagination (props: PaginationProps): JSX.Element {
 
       {totalPage > 0 && ButtonPage(1)}
 
-      { startRange > 2 &&
-      <div className="flex items-center font-bold lg:m-2">
-        <span className={`mx-1 ${page <= 1 && 'text-gray'}`}>...</span>
-      </div> }
+      { startRange > 2 && x3dot() }
 
       {range.map(item => ButtonPage(item))}
 
-      { (endRange < totalPage - 2) &&
-      <div className="flex items-center font-bold lg:m-2">
-        <span className={`mx-1 ${page <= 1 && 'text-gray'}`}>...</span>
-      </div> }
+      {(endRange < totalPage - 2) && x3dot()}
 
       {totalPage > 1 && ButtonPage(totalPage)}
 
-      <button className={`flex items-center font-bold rounded-lg ${page < totalPage && 'hover:bg-gray-300'}`}
+      <button className={classNames(Style.buttonPagination,page < totalPage && 'hover:bg-gray-300' )}
               onClick={() => nextPage()}
               disabled={page >= totalPage}>
         <span className={`lg:text-sm text-xs mx-1 ${page >= totalPage && ' text-gray-300'}`}>

@@ -1,6 +1,6 @@
-import type { NextApiRequest, NextApiResponse } from "next";
-import upsplashRequest from "../../utils/upsplashRequest";
-import { toStringParams } from '../../utils/helper';
+import type { NextApiRequest, NextApiResponse } from 'next'
+import upsplashRequest from '../../utils/upsplashRequest'
+import { toStringParams } from '../../utils/helper'
 
 export default (req: NextApiRequest, res: NextApiResponse) => {
   const { query } = req

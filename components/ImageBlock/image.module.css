@@ -1,0 +1,15 @@
+.userGrid {
+    @apply absolute bottom-1.5 left-2 z-10
+}
+
+.userImage {
+    @apply lg:w-10 lg:h-10 w-8 h-8 rounded-full mr-4
+}
+
+.imageBlock {
+    @apply w-full bg-black rounded-xl relative
+}
+
+.image {
+    @apply inset-0 w-full h-full object-center object-cover rounded-xl hover:opacity-100 cursor-pointer opacity-80
+}
