@@ -1,29 +1,45 @@
-# Next.js + Tailwind CSS Example
+## Image search by Unsplash-API
+Image search by Unsplash-API **(ISU)** is a simple web-based application. ISU allows users to search for images through Unsplash's provided API
 
-This example shows how to use [Tailwind CSS](https://tailwindcss.com/) [(v2.2)](https://blog.tailwindcss.com/tailwindcss-2-2) with Next.js. It follows the steps outlined in the official [Tailwind docs](https://tailwindcss.com/docs/guides/nextjs).
+## Feature
+👉 Visit it <a href="https://shearching-photos.vercel.app/">here</a> to experience the application.
+<br>
 
-It uses the new [`Just-in-Time Mode`](https://tailwindcss.com/docs/just-in-time-mode) for Tailwind CSS.
+## Tech/framework used
+This application uses **NextJs** which is a React Framework, uses **Tailwind** CSS framework to design and this project is written mainly in **Typescript** language.
 
-## Preview
+## Installation
 
-Preview the example live on [StackBlitz](http://stackblitz.com/):
+1. Go into the project root
+2. `yarn`  to install the website's npm dependencies
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/vercel/next.js/tree/canary/examples/with-tailwindcss)
+### Setup ENV
 
-## Deploy your own
+First you need to add some environmental values. Create an environment variable named **.env.local** or **.env.development.local** for deployment. During deployment to the main product you can create a filename .env.production.local
 
-Deploy the example using [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=next-example):
+Read more about nextJs environment variable <a href="https://nextjs.org/docs/basic-features/environment-variables">here</a>
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https://github.com/vercel/next.js/tree/canary/examples/with-tailwindcss&project-name=with-tailwindcss&repository-name=with-tailwindcss)
-
-## How to use
-
-Execute [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with [npm](https://docs.npmjs.com/cli/init) or [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/) to bootstrap the example:
+To initialize Unsplash using your client ID:
 
 ```bash
-npx create-next-app --example with-tailwindcss with-tailwindcss-app
-# or
-yarn create next-app --example with-tailwindcss with-tailwindcss-app
+REACT_APP_UNSPLASH_KEY=90d***********************************e682 // Your clientId here
+REACT_APP_API_UNSPLASH=https://api.unsplash.com/
 ```
+This must be done for any of the following functions to return results. Client IDs can be obtained by signing up for the
+<a href="https://unsplash.com/developers">Unsplash REST API</a>
 
-Deploy it to the cloud with [Vercel](https://vercel.com/new?utm_source=github&utm_medium=readme&utm_campaign=next-example) ([Documentation](https://nextjs.org/docs/deployment)).
+### Running locally
+1. `yarn dev` to start the hot-reloading development server
+2. open http://localhost:3000 to open the site in your favorite browser (default port is 3000)
+
+### Build and running production 
+1. `yarn build` to build and bundle all project
+2. `yarn start` and opening http://localhost:3000 to open the project as production
+
+## Tests
+To test all component of this project type `yarn test`. User **Jest Testing Framework** to test behavior of all component. 
+But in this version, I haven't done the testing with components yet, and i will try to do it in the next development
+
+
+## License
+2021 © [Sonduong]()
