@@ -71,12 +71,12 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className="flex flex-col items-center w-full flex-1 px-20 text-center p-4">
-        <h1 className="text-5xl font-bold">
+      <main className="flex flex-col items-center w-full flex-1 lg:px-20 text-center lg:p-4">
+        <h1 className="lg:text-3xl font-bold text-gray-700 text-xl">
           SWAT UNSPLASH TAKE HOME
         </h1>
 
-        <div className='w-1/2'>
+        <div className='lg:w-1/2 w-full'>
           <SearchInput
             placeholder="Type something to search for image"
             onChange={onChangeSearch}
@@ -86,7 +86,7 @@ export default function Home() {
 
         <div className='flex flex-wrap content-start w-full p-2'>
           {data && data?.results.map((item: type.PhotoType) => (
-            <div key={item.id} className='w-1/4 p-2'>
+            <div key={item.id} className='lg:w-1/4 lg:p-2 md:p-1 md:w-1/2 w-full p-2'>
               <Image
                 src={item.urls.regular}
                 loading={isSearching}

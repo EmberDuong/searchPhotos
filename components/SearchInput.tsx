@@ -6,7 +6,7 @@ export interface SearchProps {
 
 export default function InputSearch (props: SearchProps): JSX.Element {
   return (
-    <div className="p-4 w-full">
+    <div className="lg:p-4 w-full p-2">
       <div className="bg-white flex items-center rounded-full shadow-lg">
         <div className="p-4">
           <svg className="h-6 w-6 text-gray-700" fill="currentColor" xmlns="http://www.w3.org/2000/svg"
@@ -16,7 +16,7 @@ export default function InputSearch (props: SearchProps): JSX.Element {
           </svg>
         </div>
         <input
-          className="rounded-l-full w-4/5 p-4 text-gray-700 leading-tight focus:outline-none text-lg"
+          className="rounded-l-full lg:w-4/5 w-3/5 p-4 text-gray-700 leading-tight focus:outline-none text-lg"
           id="search"
           type="text"
           placeholder={props.placeholder || 'Search'}
