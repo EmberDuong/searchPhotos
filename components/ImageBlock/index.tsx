@@ -8,7 +8,14 @@ export interface ImageProps {
   onClick?: () => void
   title?: string
   loading?: boolean
+  user?: any
 }
+
+// user.name
+// user.bio
+// user.profile_image : {small, medium, large}
+
+
 
 export default function Index (props: ImageProps): JSX.Element {
   const [imageLoader, setImageLoader] = useState(true)
@@ -20,7 +27,7 @@ export default function Index (props: ImageProps): JSX.Element {
         : <img className={`inset-0 w-full h-full object-center object-cover rounded-xl hover:scale-105 cursor-pointer
         ${imageLoader && 'bg-gray-500 animate-pulse'}`}
                onLoad={() => setImageLoader(false)}
-            src={props.src} alt={props.alt}
+            src={props.src} alt={imageLoader? '' : props.alt}
                onClick={props?.onClick}
       />}
     </div>

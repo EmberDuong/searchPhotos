@@ -13,20 +13,20 @@ export interface PaginationProps {
 
 export default function Pagination (props: PaginationProps): JSX.Element {
   const {page, total, totalPage} = props
-  const [startRange, setStartRange] = useState(1)
-  const [endRange, setEndRange] = useState(1)
+  const [startRange, setStartRange] = useState(0)
+  const [endRange, setEndRange] = useState(0)
   const [range, setRange] = useState<number[]>([])
 
   useEffect(() => {
     let start = page - 2
-    if (start <= 0)
-      start = 1
     setStartRange(start)
     let end = page + 3
     if(end >= totalPage) {
       end = totalPage
       start = start - 2
     }
+    if (start <= 0)
+      start = 1
     if(start < 2) end = end + 2
     setEndRange(end)
     const list = []
@@ -61,10 +61,14 @@ export default function Pagination (props: PaginationProps): JSX.Element {
 
   return (
     <ul className={classNames('flex', props?.className)}>
-      <button className="flex items-center font-bold hover:bg-gray-300 rounded-lg" onClick={() => previousPage()} disabled={page <= 1}>
+      <button className="flex items-center font-bold hover:bg-gray-300 rounded-lg"
+              onClick={() => previousPage()}
+              disabled={page <= 1}>
         <span className={`mx-1 ${page <= 1 && 'font-bold text-gray-100'}`}>previous</span>
       </button>
-      {ButtonPage(1)}
+
+      {totalPage > 0 && ButtonPage(1)}
+
       { startRange > 2 &&
       <div className="flex items-center font-bold m-2">
         <span className={`mx-1 ${page <= 1 && 'text-gray'}`}>...</span>
@@ -76,7 +80,9 @@ export default function Pagination (props: PaginationProps): JSX.Element {
       <div className="flex items-center font-bold m-2">
         <span className={`mx-1 ${page <= 1 && 'text-gray'}`}>...</span>
       </div> }
+
       {totalPage > 1 && ButtonPage(totalPage)}
+
       <button className="flex items-center font-bold hover:bg-gray-300 rounded-lg" onClick={() => nextPage()} disabled={page >= total}>
         <span className={`mx-1 ${page >= total && 'font-bold text-gray-100'}`}>Next</span>
       </button>

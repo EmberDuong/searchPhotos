@@ -1,25 +1,38 @@
 import Head from 'next/head'
 import request from '../utils/request'
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react';
 import * as type from '../interfaces'
 import { toStringParams } from '../utils/helper'
 import useDebounce from '../components/Debounce'
 import Image from '../components/ImageBlock'
 import SearchInput from '../components/SearchInput'
 import Pagination from '../components/Pagination'
+import { useRouter } from 'next/router'
+
 const defaultPayload = {
     page: 1,
     per_page: 16
 }
 
 export default function Home() {
+  const router = useRouter()
+
   const [pagination, setPagination] = useState<type.PaginationType>(defaultPayload)
   const [data, setData] = useState<type.DataType | undefined>(undefined)
   const [isSearching, setIsSearching] = useState(false)
   const [searchTerm, setSearchTerm] = useState("");
   const debouncedSearchTerm = useDebounce(searchTerm, 1000);
-  const searchPhoto = () => {
-    if(pagination && debouncedSearchTerm)
+  const debouncedPage = useDebounce(pagination.page, 800);
+
+  useMemo(() => {
+    const {page, query} = router.query
+    if(page) setPagination({page: Number(page), per_page: 16})
+    if(query) setSearchTerm(query as string)
+  }, [router.query])
+
+
+  const fetchPhoto = () => {
+    if(debouncedPage && debouncedSearchTerm)
     {
       const params = toStringParams({...pagination, query: debouncedSearchTerm})
       request.get('/photos?' + params).then(results => {
@@ -34,14 +47,17 @@ export default function Home() {
   }
 
   useEffect(() => {
-    if(debouncedSearchTerm) {
+    if(debouncedSearchTerm || debouncedPage) {
       setIsSearching(true)
-      searchPhoto()
+      fetchPhoto()
+      if(debouncedSearchTerm)
+        router.push(`?page=${pagination.page}&query=${searchTerm}`, undefined,{shallow: true})
     }
-  }, [debouncedSearchTerm, pagination])
+  }, [debouncedSearchTerm, debouncedPage])
 
   const onChangeSearch = (value: string) => {
     setSearchTerm(value)
+    setPagination(defaultPayload)
   }
 
   const handleClickImage = (url: string) => {
@@ -56,15 +72,18 @@ export default function Home() {
       </Head>
 
       <main className="flex flex-col items-center w-full flex-1 px-20 text-center p-4">
-        <h1 className="text-6xl font-bold">
-          Welcome to image searching!
+        <h1 className="text-5xl font-bold">
+          SWAT UNSPLASH TAKE HOME
         </h1>
-      <div className='w-1/2'>
-        <SearchInput
-          placeholder="Type something to search for image"
-          onChange={onChangeSearch}
-        />
-      </div>
+
+        <div className='w-1/2'>
+          <SearchInput
+            placeholder="Type something to search for image"
+            onChange={onChangeSearch}
+            defaultSearch={searchTerm}
+          />
+        </div>
+
         <div className='flex flex-wrap content-start w-full p-2'>
           {data && data?.results.map((item: type.PhotoType) => (
             <div key={item.id} className='w-1/4 p-2'>
@@ -72,15 +91,17 @@ export default function Home() {
                 src={item.urls.regular}
                 loading={isSearching}
                 className='h-60'
-                onClick={() => handleClickImage(item.urls.regular)}
+                onClick={() => handleClickImage(item.links.html || item.urls.regular)}
+                user={item.user}
                 alt={item.description || ''}/>
             </div>
           ))}
         </div>
-        {data && data?.results &&
-        <Pagination
+
+        {data && data?.results && <Pagination
           className='p-4'
           limit={16} onChangePage={handleChangePagination} page={pagination.page} total={data?.total} totalPage={data?.total_pages}/>}
+
       </main>
       <footer className="flex items-center justify-center w-full h-24 border-t">
       </footer>

@@ -26,6 +26,7 @@ export type PhotoType = {
   color: string | null
   description?: string
   like?: number
+  user?: any
 };
 
 export type DataType = {

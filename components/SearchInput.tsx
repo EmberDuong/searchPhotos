@@ -16,7 +16,7 @@ export default function InputSearch (props: SearchProps): JSX.Element {
           </svg>
         </div>
         <input
-          className="rounded-l-full w-full p-4 text-gray-700 leading-tight focus:outline-none text-lg"
+          className="rounded-l-full w-4/5 p-4 text-gray-700 leading-tight focus:outline-none text-lg"
           id="search"
           type="text"
           placeholder={props.placeholder || 'Search'}
