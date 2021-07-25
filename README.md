@@ -15,14 +15,14 @@ This application uses **NextJs** which is a React Framework, uses **Tailwind** C
 
 ### Setup ENV
 
-First you need to add some environmental values. Create an environment variable named **.env.local** or **.env.development.local** for deployment. During deployment to the main product you can create a filename .env.production.local
+First you need to add some environmental values (follow .env.example). Create an environment variable named **.env.local** or **.env.development.local** for deployment. During deployment to the main product you can create a filename .env.production.local
 
 Read more about nextJs environment variable <a href="https://nextjs.org/docs/basic-features/environment-variables">here</a>
 
 To initialize Unsplash using your client ID:
 
 ```bash
-REACT_APP_UNSPLASH_KEY=90d***********************************e682 // Your clientId here
+REACT_APP_UNSPLASH_KEY=90d***********************************e682  # Your clientId here
 REACT_APP_API_UNSPLASH=https://api.unsplash.com/
 ```
 This must be done for any of the following functions to return results. Client IDs can be obtained by signing up for the
